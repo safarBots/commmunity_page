@@ -17,7 +17,7 @@ new Vue({
         // Fetching posts logic
       },
       initializeChat() {
-        this.socket = io('http://localhost:3000');
+        this.socket = io('https://community-server-mbch.onrender.com');
 
 
         this.socket.on('chat message', (msg) => {
