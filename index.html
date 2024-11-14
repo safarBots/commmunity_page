@@ -134,6 +134,20 @@
             }
           });
 
+          profileBtn.addEventListener('click', () => {
+            profileModal.classList.remove('hidden');
+          });
+
+          profileClose.addEventListener('click', () => {
+            profileModal.classList.add('hidden');
+          });
+
+          saveProfile.addEventListener('click', () => {
+            const name = document.getElementById('user-name').value.trim();
+            if (name) this.userName = name;
+            profileModal.classList.add('hidden');
+          });
+
           chatSend.addEventListener('click', () => {
             const message = chatInput.value.trim();
             if (message) {
