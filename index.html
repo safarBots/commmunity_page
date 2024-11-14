@@ -77,69 +77,70 @@
     new Vue({
       el: '#app',
       data: {
+        blogPosts: [],
         socket: null,
-        chatMessages: [],
-        userName: 'Anonymous', // Default user name
-      },
-      mounted() {
-        this.initializeChat();
-      },
-      methods: {
-        initializeChat() {
-          this.socket = io('https://community-server-mbch.onrender.com'); // Replace with your Socket.IO server URL
-          this.socket.on('chat message', (msg) => {
-            this.chatMessages.push(msg);
-            this.scrollChatToBottom();
-          });
+    loading: false,
+    error: false,
+    username: '', // Add username field
+    messages: [] // Store chat messages
+  },
+  mounted() {
+    this.fetchBlogPosts();
+    this.initializeChat();
+  },
+  methods: {
+    async fetchBlogPosts() {
+      // Fetching posts logic
+    },
+    initializeChat() {
+      this.socket = io('https://community-server-mbch.onrender.com');
 
-          const chatBtn = document.getElementById('chat-btn');
-          const chatModal = document.getElementById('chat-modal');
-          const chatInput = document.getElementById('chat-input');
-          const chatSend = document.getElementById('chat-send');
-          const chatClose = document.getElementById('chat-close');
+      // Prompt for username (add profile fields as desired)
+      this.username = prompt('Enter your name:') || 'Anonymous';
 
-          const profileBtn = document.getElementById('profile-btn');
-          const profileModal = document.getElementById('profile-modal');
-          const profileClose = document.getElementById('profile-close');
-          const saveProfile = document.getElementById('save-profile');
+      this.socket.on('chat message', (msg) => {
+        this.appendChatMessage(msg);
+      });
 
-          chatBtn.addEventListener('click', () => {
-            chatModal.classList.remove('hidden');
-          });
+      const chatBtn = document.getElementById('chat-btn');
+      const chatModal = document.getElementById('chat-modal');
+      const chatInput = document.getElementById('chat-input');
+      const chatSend = document.getElementById('chat-send');
+      const chatClose = document.getElementById('chat-close');
 
-          chatClose.addEventListener('click', () => {
-            chatModal.classList.add('hidden');
-          });
+      chatBtn.addEventListener('click', () => {
+        chatModal.classList.remove('hidden');
+      });
 
-          profileBtn.addEventListener('click', () => {
-            profileModal.classList.remove('hidden');
-          });
+      chatClose.addEventListener('click', () => {
+        chatModal.classList.add('hidden');
+      });
 
-          profileClose.addEventListener('click', () => {
-            profileModal.classList.add('hidden');
-          });
+      chatModal.addEventListener('click', (e) => {
+        if (e.target === chatModal) {
+          chatModal.classList.add('hidden');
+        }
+      });
 
-          saveProfile.addEventListener('click', () => {
-            const name = document.getElementById('user-name').value.trim();
-            if (name) this.userName = name;
-            profileModal.classList.add('hidden');
-          });
-
-          chatSend.addEventListener('click', () => {
-            const message = chatInput.value.trim();
-            if (message) {
-              const fullMessage = `${this.userName}: ${message}`;
-              this.socket.emit('chat message', fullMessage);
-              chatInput.value = '';
-            }
-          });
-        },
-        scrollChatToBottom() {
-          const chatMessages = document.getElementById('chat-messages');
-          chatMessages.scrollTop = chatMessages.scrollHeight;
-        },
-      }
-    });
+      chatSend.addEventListener('click', () => {
+        const message = chatInput.value.trim();
+        if (message) {
+          const msgObj = { username: this.username, text: message };
+          this.socket.emit('chat message', msgObj);
+          chatInput.value = '';
+        }
+      });
+    },
+    appendChatMessage(msg) {
+      const chatMessages = document.getElementById('chat-messages');
+      const messageElement = document.createElement('div');
+      messageElement.textContent = `${msg.username}: ${msg.text}`;
+      messageElement.classList.add('bg-gray-700', 'p-2', 'rounded', 'mb-2');
+      chatMessages.appendChild(messageElement);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  }
+});
   </script>
 </body>
 </html>
