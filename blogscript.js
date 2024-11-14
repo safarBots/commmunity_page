@@ -101,7 +101,7 @@ const accessKey = '77c34689604bb18292cd6cb624e447b6';
 async function fetchBlogs() {
     try {
         // Added a cache-busting query parameter to ensure fresh data on each refresh
-        const response = await fetch(`http://api.mediastack.com/v1/news?access_key=${accessKey}&categories=health&limit=9&timestamp=${new Date().getTime()}`);
+        const response = await fetch(`https://api.mediastack.com/v1/news?access_key=${accessKey}&categories=health&limit=9&timestamp=${new Date().getTime()}`);
         const data = await response.json();
 
         if (data.data) {
