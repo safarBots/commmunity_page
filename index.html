@@ -103,8 +103,6 @@
         initializeChat() {
           this.socket = io('https://community-server-mbch.onrender.com');
 
-          // Prompt for username (add profile fields as desired)
-          this.username = prompt('Enter your name:') || 'Anonymous';
 
           this.socket.on('chat message', (msg) => {
             this.appendChatMessage(msg);
@@ -144,7 +142,7 @@
           });
 
           saveProfile.addEventListener('click', () => {
-            const name = document.getElementById('user-name').value.trim();
+            const name = document.getElementById('user-name').value.trim() || "Anonymous";
             if (name) this.userName = name;
             profileModal.classList.add('hidden');
           });
@@ -152,7 +150,7 @@
           chatSend.addEventListener('click', () => {
             const message = chatInput.value.trim();
             if (message) {
-              const msgObj = { username: this.username, text: message };
+              const msgObj = { username: this.userName, text: message };
               this.socket.emit('chat message', msgObj);
               chatInput.value = '';
             }
