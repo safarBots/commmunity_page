@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Medical Community Server Page</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-900 text-white">
   <div id="app" class="container mx-auto py-8">
     <header class="bg-blue-500 p-4 mb-8">
@@ -18,8 +20,11 @@
           </button>
           <!-- Chat Icon -->
           <button id="chat-btn" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+              </path>
             </svg>
           </button>
         </div>
@@ -37,14 +42,17 @@
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-bold">Community Chat</h2>
             <button id="chat-close" class="text-gray-400 hover:text-gray-300">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
           </div>
           <div id="chat-messages" class="h-64 overflow-y-auto mb-4"></div>
           <div class="flex">
-            <input id="chat-input" type="text" class="bg-gray-700 border-gray-600 text-white px-4 py-2 rounded-l-lg flex-grow" placeholder="Type your message">
+            <input id="chat-input" type="text"
+              class="bg-gray-700 border-gray-600 text-white px-4 py-2 rounded-l-lg flex-grow"
+              placeholder="Type your message">
             <button id="chat-send" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-r-lg">Send</button>
           </div>
         </div>
@@ -58,14 +66,18 @@
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-bold">User Profile</h2>
             <button id="profile-close" class="text-gray-400 hover:text-gray-300">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
           </div>
-          <input id="user-name" type="text" placeholder="Enter your name" class="bg-gray-700 text-white px-4 py-2 mb-4 rounded w-full">
-          <input id="user-email" type="email" placeholder="Enter your email" class="bg-gray-700 text-white px-4 py-2 mb-4 rounded w-full">
-          <button id="save-profile" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full">Save</button>
+          <input id="user-name" type="text" placeholder="Enter your name"
+            class="bg-gray-700 text-white px-4 py-2 mb-4 rounded w-full">
+          <input id="user-email" type="email" placeholder="Enter your email"
+            class="bg-gray-700 text-white px-4 py-2 mb-4 rounded w-full">
+          <button id="save-profile"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full">Save</button>
         </div>
       </div>
     </div>
@@ -79,68 +91,69 @@
       data: {
         blogPosts: [],
         socket: null,
-    loading: false,
-    error: false,
-    username: '', // Add username field
-    messages: [] // Store chat messages
-  },
-  mounted() {
-    this.fetchBlogPosts();
-    this.initializeChat();
-  },
-  methods: {
-    async fetchBlogPosts() {
-      // Fetching posts logic
-    },
-    initializeChat() {
-      this.socket = io('https://community-server-mbch.onrender.com');
+        loading: false,
+        error: false,
+        username: '', // Add username field
+        messages: [] // Store chat messages
+      },
+      mounted() {
+        this.fetchBlogPosts();
+        this.initializeChat();
+      },
+      methods: {
+        async fetchBlogPosts() {
+          // Fetching posts logic
+        },
+        initializeChat() {
+          this.socket = io('https://community-server-mbch.onrender.com');
 
-      // Prompt for username (add profile fields as desired)
-      this.username = prompt('Enter your name:') || 'Anonymous';
+          // Prompt for username (add profile fields as desired)
+          this.username = prompt('Enter your name:') || 'Anonymous';
 
-      this.socket.on('chat message', (msg) => {
-        this.appendChatMessage(msg);
-      });
+          this.socket.on('chat message', (msg) => {
+            this.appendChatMessage(msg);
+          });
 
-      const chatBtn = document.getElementById('chat-btn');
-      const chatModal = document.getElementById('chat-modal');
-      const chatInput = document.getElementById('chat-input');
-      const chatSend = document.getElementById('chat-send');
-      const chatClose = document.getElementById('chat-close');
+          const chatBtn = document.getElementById('chat-btn');
+          const chatModal = document.getElementById('chat-modal');
+          const chatInput = document.getElementById('chat-input');
+          const chatSend = document.getElementById('chat-send');
+          const chatClose = document.getElementById('chat-close');
 
-      chatBtn.addEventListener('click', () => {
-        chatModal.classList.remove('hidden');
-      });
+          chatBtn.addEventListener('click', () => {
+            chatModal.classList.remove('hidden');
+          });
 
-      chatClose.addEventListener('click', () => {
-        chatModal.classList.add('hidden');
-      });
+          chatClose.addEventListener('click', () => {
+            chatModal.classList.add('hidden');
+          });
 
-      chatModal.addEventListener('click', (e) => {
-        if (e.target === chatModal) {
-          chatModal.classList.add('hidden');
+          chatModal.addEventListener('click', (e) => {
+            if (e.target === chatModal) {
+              chatModal.classList.add('hidden');
+            }
+          });
+
+          chatSend.addEventListener('click', () => {
+            const message = chatInput.value.trim();
+            if (message) {
+              const msgObj = { username: this.username, text: message };
+              this.socket.emit('chat message', msgObj);
+              chatInput.value = '';
+            }
+          });
+        },
+        appendChatMessage(msg) {
+          const chatMessages = document.getElementById('chat-messages');
+          const messageElement = document.createElement('div');
+          messageElement.textContent = `${msg.username}: ${msg.text}`;
+          messageElement.classList.add('bg-gray-700', 'p-2', 'rounded', 'mb-2');
+          chatMessages.appendChild(messageElement);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-      });
-
-      chatSend.addEventListener('click', () => {
-        const message = chatInput.value.trim();
-        if (message) {
-          const msgObj = { username: this.username, text: message };
-          this.socket.emit('chat message', msgObj);
-          chatInput.value = '';
-        }
-      });
-    },
-    appendChatMessage(msg) {
-      const chatMessages = document.getElementById('chat-messages');
-      const messageElement = document.createElement('div');
-      messageElement.textContent = `${msg.username}: ${msg.text}`;
-      messageElement.classList.add('bg-gray-700', 'p-2', 'rounded', 'mb-2');
-      chatMessages.appendChild(messageElement);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-  }
-});
+      }
+    });
   </script>
 </body>
+
 </html>
