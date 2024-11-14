@@ -12,7 +12,10 @@
   <div id="app" class="container mx-auto py-8">
     <header class="bg-blue-500 p-4 mb-8">
       <nav class="flex justify-between items-center">
-        <div class="text-2xl font-bold">Medical Community</div>
+        <div class="text-2xl font-bold flex items-center">
+            <img src="./medical_services_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="Medimate Logo"class="w-8 h-8 mr-2">
+            <p>Medical Community</p>
+        </div>
         <div class="flex space-x-4">
           <!-- Profile Icon -->
           <button id="profile-btn" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded">
@@ -72,101 +75,20 @@
             </button>
           </div>
           <input id="user-name" type="text" placeholder="Enter your name" class="bg-gray-700 text-white px-4 py-2 mb-4 rounded w-full">
-          <input id="user-email" type="email" placeholder="Enter your email" class="bg-gray-700 text-white px-4 py-2 mb-4 rounded w-full">
           <button id="save-profile" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full">Save</button>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-extrabold text-center text-blue-500 mb-8">Latest Health Blogs</h1>
+    <div id="blog-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script src="https://cdn.socket.io/4.8.0/socket.io.min.js" crossorigin="anonymous"></script>
-  <script>
-    new Vue({
-      el: '#app',
-      data: {
-        blogPosts: [],
-        socket: null,
-        loading: false,
-        error: false,
-        username: '', // Add username field
-        messages: [] // Store chat messages
-      },
-      mounted() {
-        this.fetchBlogPosts();
-        this.initializeChat();
-      },
-      methods: {
-        async fetchBlogPosts() {
-          // Fetching posts logic
-        },
-        initializeChat() {
-          this.socket = io('https://community-server-mbch.onrender.com');
-
-
-          this.socket.on('chat message', (msg) => {
-            this.appendChatMessage(msg);
-          });
-
-          const chatBtn = document.getElementById('chat-btn');
-          const chatModal = document.getElementById('chat-modal');
-          const chatInput = document.getElementById('chat-input');
-          const chatSend = document.getElementById('chat-send');
-          const chatClose = document.getElementById('chat-close');
-
-          const profileBtn = document.getElementById('profile-btn');
-          const profileModal = document.getElementById('profile-modal');
-          const profileClose = document.getElementById('profile-close');
-          const saveProfile = document.getElementById('save-profile');
-
-          chatBtn.addEventListener('click', () => {
-            chatModal.classList.remove('hidden');
-          });
-
-          chatClose.addEventListener('click', () => {
-            chatModal.classList.add('hidden');
-          });
-
-          chatModal.addEventListener('click', (e) => {
-            if (e.target === chatModal) {
-              chatModal.classList.add('hidden');
-            }
-          });
-
-          profileBtn.addEventListener('click', () => {
-            profileModal.classList.remove('hidden');
-          });
-
-          profileClose.addEventListener('click', () => {
-            profileModal.classList.add('hidden');
-          });
-
-          saveProfile.addEventListener('click', () => {
-            const name = document.getElementById('user-name').value.trim() || "Anonymous";
-            if (name) this.userName = name;
-            profileModal.classList.add('hidden');
-          });
-
-          chatSend.addEventListener('click', () => {
-            const message = chatInput.value.trim();
-            if (message) {
-              const msgObj = { username: this.userName, text: message };
-              this.socket.emit('chat message', msgObj);
-              chatInput.value = '';
-            }
-          });
-        },
-        appendChatMessage(msg) {
-          const chatMessages = document.getElementById('chat-messages');
-          const messageElement = document.createElement('div');
-          messageElement.textContent = `${msg.username}: ${msg.text}`;
-          messageElement.classList.add('bg-gray-700', 'p-2', 'rounded', 'mb-2');
-          chatMessages.appendChild(messageElement);
-          chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-      }
-    });
-  </script>
+  <script src="./blogscript.js"></script>
 </body>
 
 </html>
