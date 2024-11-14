@@ -93,7 +93,7 @@
             this.loading = true;  // Set loading to true when fetching begins
             this.error = false;   // Reset error state
             try {  // Make a GET request to fetch blog posts from the WordPress API
-                const response = await axios.get('https://public-api.wordpress.com/wp/v2/sites/{http://127.0.0.1:5500/community.html}.wordpress.com/posts');
+                const response = await axios.get('https://public-api.wordpress.com/wp/v2/sites/{https://commmunity-pagebus.onrender.com}.wordpress.com/posts');
                 // Store the fetched posts in the 'blogPosts' array
                 this.blogPosts = response.data; // The API response contains a 'data' property with the posts
             } 
