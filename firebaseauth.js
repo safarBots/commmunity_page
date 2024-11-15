@@ -190,8 +190,3 @@ if (signIn) {
   });
 }
 
-// Profile modal close button
-document.getElementById('profile-close').addEventListener('click', () => {
-  document.getElementById('profile-modal').classList.add('hidden');
-});
-
