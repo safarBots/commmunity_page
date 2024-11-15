@@ -45,13 +45,13 @@ new Vue({
         }
       });
 
-      chatInput.addEventListener('keyup', () => {
-          const msg = chatInput.value.trim();
-          if (event.key === 'Enter') {
-            const msgOb = { username: this.userName ||"Anonymous", text: message };
-            this.socket.emit('chat message', msgOb);
-            chatInput.value = '';
-          }
+      chatInput.addEventListener('keyup', (event) => {
+        const msg = chatInput.value.trim();
+        if (event.key === 'Enter' && msg) {
+          const msgObj = { username: this.username || "Anonymous", text: msg };
+          this.socket.emit('chat message', msgObj);
+          chatInput.value = '';
+        }
       });
 
       chatSend.addEventListener('click', () => {
