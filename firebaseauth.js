@@ -1,35 +1,35 @@
-import { 
-  initializeApp 
+import {
+  initializeApp
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  sendPasswordResetEmail, 
-  sendEmailVerification, 
-  onAuthStateChanged 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 
-import { 
-  getFirestore, 
-  setDoc, 
-  doc, 
-  getDoc, 
-  addDoc, 
-  collection 
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  getDoc,
+  addDoc,
+  collection
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB3Mq-s1c09z9wM5rpIMAo8_IOng2w8H1A",
-    authDomain: "gfgdb-47f3e.firebaseapp.com",
-    projectId: "gfgdb-47f3e",
-    storageBucket: "gfgdb-47f3e.appspot.com",
-    messagingSenderId: "591404932384",
-    appId: "1:591404932384:web:5be7ce56aed0a8ce1f4b45"
+  apiKey: "AIzaSyB3Mq-s1c09z9wM5rpIMAo8_IOng2w8H1A",
+  authDomain: "gfgdb-47f3e.firebaseapp.com",
+  projectId: "gfgdb-47f3e",
+  storageBucket: "gfgdb-47f3e.appspot.com",
+  messagingSenderId: "591404932384",
+  appId: "1:591404932384:web:5be7ce56aed0a8ce1f4b45"
 };
 
 // Initialize Firebase
@@ -190,69 +190,8 @@ if (signIn) {
   });
 }
 
-
-// Add this code for handling feedback form submissions
-const feedbackForm = document.getElementById("feedbackForm");
-
-if (feedbackForm) {
-  feedbackForm.addEventListener("submit", async (event) => {
-    event.preventDefault(); // Prevent page reload on form submit
-    
-    // Get the form input values
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const feedback = document.getElementById("feedback").value;
-
-    try {
-      // Store the feedback data in Firestore
-      await addDoc(collection(db, "feedback"), {
-        name: name,
-        email: email,
-        feedback: feedback,
-      });
-
-      // Show success message
-      showMessage("Feedback submitted successfully!", "feedbackMessage");
-      
-      // Reset form after submission
-      feedbackForm.reset();
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
-      showMessage("Error submitting feedback. Please try again.", "feedbackMessage");
-    }
-  });
-}
-
-// Wait until the DOM content is loaded
-document.addEventListener('DOMContentLoaded', async () => {
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const userId = user.uid;
-
-      try {
-        // Fetch user details from Firestore
-        const userDocRef = doc(db, 'users', userId);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          // Combine firstName and lastName if needed, or use the correct field
-          const userName = `${userData.firstName} ${userData.lastName}`; 
-          document.getElementById('user-name').value = userName;
-        } else {
-          console.error("No such user document in Firestore.");
-        }
-      } catch (error) {
-        console.error("Error fetching user document:", error);
-      }
-    } else {
-      // Redirect to login page if not logged in
-      window.location.href = './singup.html';
-    }
-  });
-
-  // Profile modal close button
-  document.getElementById('profile-close').addEventListener('click', () => {
-    document.getElementById('profile-modal').classList.add('hidden');
-  });
+// Profile modal close button
+document.getElementById('profile-close').addEventListener('click', () => {
+  document.getElementById('profile-modal').classList.add('hidden');
 });
+
