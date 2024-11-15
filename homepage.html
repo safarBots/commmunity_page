@@ -37,6 +37,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/scrollparallax"></script>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
   <df-messenger intent="WELCOME" chat-title="healthBot" agent-id="28ca3903-1988-4901-a672-7727121c4cb2"
@@ -76,8 +77,7 @@
 
           <a href="./news.html" class="text-gray-300 hover:text-blue-400">MedNews</a>
 
-          <a href="./community_page copy/index.html"
-            class="text-gray-300 hover:text-blue-400">MedCom</a>
+          <a href="./community_page copy/index.html" class="text-gray-300 hover:text-blue-400">MedCom</a>
 
 
           <button id="profileBtn" class="ml-4 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
@@ -130,6 +130,70 @@
       </div>
     </div>
   </section>
+  <!-- About Section -->
+  <section id="about"
+    class="bg-gray-800 py-12 px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col justify-center relative overflow-hidden parallax-section">
+    <div class="container mx-auto">
+      <!-- Section Title -->
+      <h2 class="text-center text-4xl font-extrabold text-white mb-6 animate__animated animate__fadeInUp">How
+        Medimate Helps You</h2>
+      <p class="text-center text-gray-300 mb-12 animate__animated animate__fadeIn animate__delay-1s">Explore how
+        our innovative platform is transforming health management with cutting-edge tools and support:</p>
+
+      <!-- Cards with content -->
+      <div class="flex flex-col lg:flex-row lg:space-x-12 gap-8">
+        <!-- MedAI: Advanced AI Model -->
+        <div
+          class="bg-gray-700 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center transform transition-all hover:scale-105 hover:bg-gray-600 animate__animated animate__fadeInUp">
+          <img src="./img/medai-image.jpg" alt="MedAI"
+            class="w-16 h-16 mb-4 transition-transform duration-300 hover:rotate-12">
+          <h3 class="text-2xl font-semibold text-blue-400 mb-4">MedAI: Advanced AI Model</h3>
+          <p class="text-gray-300">MedAI offers advanced features like symptom diagnostics, prescriptions,
+            home remedies, and Ayurvedic solutions. With a vast knowledge base from renowned medical books,
+            it provides valuable insights for both medical professionals and patients.</p>
+        </div>
+        <!-- MedBot: Mental Health Chatbot -->
+        <div
+          class="bg-gray-700 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center transform transition-all hover:scale-105 hover:bg-gray-600 animate__animated animate__fadeInUp animate__delay-1s">
+          <img src="./img/medbot-image.jpg" alt="MedBot"
+            class="w-16 h-16 mb-4 transition-transform duration-300 hover:rotate-12">
+          <h3 class="text-2xl font-semibold text-blue-400 mb-4">MedBot: Mental Health Chatbot</h3>
+          <p class="text-gray-300">MedBot is here to help with mental health, providing support for anxiety
+            and depression, especially for stressed students and professionals. It delivers therapeutic
+            responses and mood-resolving techniques for a healthier mindset.</p>
+        </div>
+        <!-- MedCom: Community Chat Server -->
+        <div
+          class="bg-gray-700 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center transform transition-all hover:scale-105 hover:bg-gray-600 animate__animated animate__fadeInUp animate__delay-2s">
+          <img src="./img/medcom-image.jpg" alt="MedCom"
+            class="w-16 h-16 mb-4 transition-transform duration-300 hover:rotate-12">
+          <h3 class="text-2xl font-semibold text-blue-400 mb-4">MedCom: Community Chat Server</h3>
+          <p class="text-gray-300">MedCom connects people from across the globe and medical institutions,
+            enabling communication and knowledge sharing. Collaborate with others in the medical community
+            to promote health and wellness.</p>
+        </div>
+      </div>
+      <div class="flex flex-col lg:flex-row lg:space-x-12 gap-8 mt-12">
+        <!-- MedNews: Latest Blogs and News -->
+        <div
+          class="bg-gray-700 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center transform transition-all hover:scale-105 hover:bg-gray-600 animate__animated animate__fadeInUp animate__delay-3s">
+          <img src="./img/mednews-image.jpg" alt="MedNews"
+            class="w-16 h-16 mb-4 transition-transform duration-300 hover:rotate-12">
+          <h3 class="text-2xl font-semibold text-blue-400 mb-4">MedNews: Latest Blogs & News</h3>
+          <p class="text-gray-300">Stay informed with the latest developments in healthcare, medical
+            breakthroughs, and wellness trends. MedNews provides fresh news articles and blogs that bring
+            valuable information straight to you.</p>
+        </div>
+      </div>
+
+      <!-- Closing Text -->
+      <div class="mt-12 text-center">
+        <p class="text-gray-300 animate__animated animate__fadeIn animate__delay-4s">At Medimate, we believe in
+          empowering users with the right knowledge, tools, and support to improve their health and
+          well-being. Join us on this transformative journey!</p>
+      </div>
+    </div>
+  </section>
 
   <!-- Health Article-->
   <section id="resources" class="bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
@@ -164,64 +228,7 @@
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about"
-    class="bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col justify-center border-4 border-blue-500">
-    <div class="container mx-auto">
-      <h2 class="text-center text-4xl font-extrabold text-white mb-6">
-        How We Help You
-      </h2>
-      <p class="text-center text-gray-300 mb-12">
-        Our platform is designed to assist you in managing your health
-        effectively. Here’s how we can help:
-      </p>
-      <div class="flex flex-col lg:flex-row lg:space-x-12">
-        <!-- Symptom Analysis -->
-        <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6 lg:mb-0 lg:w-1/3 flex flex-col items-center text-center">
-          <img src="./img/download (1).jpeg" alt="Symptom Analysis" class="w-16 h-16 mb-4" />
-          <h3 class="text-2xl font-semibold text-blue-400 mb-4">
-            Provide Your Symptoms
-          </h3>
-          <p class="text-gray-300">
-            Enter your symptoms into our user-friendly form. We analyze the
-            symptoms to provide preliminary insights into potential health
-            issues.
-          </p>
-        </div>
-        <!-- Disease Identification -->
-        <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6 lg:mb-0 lg:w-1/3 flex flex-col items-center text-center">
-          <img src="./img/download (2).jpeg" alt="Disease Identification" class="w-16 h-16 mb-4" />
-          <h3 class="text-2xl font-semibold text-blue-400 mb-4">
-            Identify Suspected Disease
-          </h3>
-          <p class="text-gray-300">
-            Based on the symptoms you provide, our advanced algorithm predicts
-            possible diseases, giving you a better understanding of your
-            health condition.
-          </p>
-        </div>
-        <!-- Home Remedies -->
-        <div class="bg-gray-800 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center">
-          <img src="./img/download.jpeg" alt="Home Remedies" class="w-16 h-16 mb-4" />
-          <h3 class="text-2xl font-semibold text-blue-400 mb-4">
-            Get Home Remedies
-          </h3>
-          <p class="text-gray-300">
-            Receive a list of home remedies to help manage your symptoms and
-            get instant relief. Remember, these remedies are not a substitute
-            for professional medical advice.
-          </p>
-        </div>
-      </div>
-      <div class="mt-12 text-center">
-        <p class="text-gray-300">
-          While our tool provides useful insights and home remedies, we always
-          recommend consulting with a healthcare professional for a
-          comprehensive diagnosis and treatment plan.
-        </p>
-      </div>
-    </div>
-  </section>
+
 
   <section id="feedback" class="bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
     <div class="container mx-auto">
@@ -229,25 +236,6 @@
         Feedback
       </h2>
       <form id="feedbackForm" class="max-w-lg mx-auto bg-gray-900 p-8 rounded-lg shadow-lg">
-        <!-- Name Field -->
-        <div class="mb-6">
-          <label for="name" class="block text-white text-lg font-medium mb-2">
-            Your Name:
-          </label>
-          <input type="text" id="name"
-            class="form-input w-full px-3 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            placeholder="Enter your name" required />
-        </div>
-
-        <!-- Email Field -->
-        <div class="mb-6">
-          <label for="email" class="block text-white text-lg font-medium mb-2">
-            Your Email:
-          </label>
-          <input type="email" id="email"
-            class="form-input w-full px-3 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            placeholder="Enter your email" required />
-        </div>
 
         <!-- Feedback Field -->
         <div class="mb-6">
@@ -281,6 +269,10 @@
 
   <!-- JavaScript -->
   <script>
+    // Initialize parallax effect
+    window.onload = function () {
+      const scrollParallax = new ScrollParallax();
+    };
     function redirect() {
       window.location.href = "./user/user.html";
     }
@@ -292,61 +284,7 @@
         mobileMenu.classList.toggle("hidden");
       });
 
-    // Symptom Form Submit
-    document
-      .getElementById("symptomForm")
-      .addEventListener("submit", function (event) {
-        event.preventDefault();
-        const symptoms = document.getElementById("symptoms").value;
-        const resultDiv = document.getElementById("result");
 
-        // Simulate disease prediction based on symptoms
-        if (symptoms) {
-          resultDiv.innerHTML = `<h3 class="text-white">Predicted Disease:</h3><p class="text-gray-300">Based on your symptoms, you may have a common cold. Please consult a healthcare professional for a proper diagnosis.</p>`;
-        } else {
-          resultDiv.innerHTML = `<p class="text-danger">Please enter your symptoms.</p>`;
-        }
-      });
-
-    document
-      .getElementById("symptomForm")
-      .addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        // Gather form data
-        const formData = {
-          fever: document.getElementById("fever").value,
-          cough: document.getElementById("cough").value,
-          fatigue: document.getElementById("fatigue").value,
-          difficultyBreathing: document.getElementById("difficultyBreathing")
-            .value,
-          age: document.getElementById("age").value,
-          gender: document.getElementById("gender").value,
-          bloodPressure: document.getElementById("bloodPressure").value,
-          cholesterolLevel: document.getElementById("cholesterolLevel").value,
-        };
-
-        // Send data to Flask backend
-        fetch("/predict", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            document.getElementById(
-              "result"
-            ).innerHTML = `<h3>Predicted Disease:</h3><p>${data.result}</p>`;
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            document.getElementById(
-              "result"
-            ).innerHTML = `<p class="text-red-500">An error occurred. Please try again.</p>`;
-          });
-      });
     // Prevent back navigation to homepage.html or user.html after logout
     window.onload = function () {
       const loggedInUserId = localStorage.getItem("loggedInUserId");

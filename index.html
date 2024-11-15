@@ -10,7 +10,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/scrollparallax"></script>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Parallax effect */
+        .parallax {
+            background-image: url('./img/your-background-image.jpg');
+            min-height: 100vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .parallax-section {
+            position: relative;
+            z-index: 10;
+        }
+
+        .parallax-content {
+            position: relative;
+            z-index: 20;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-900 text-light">
@@ -34,21 +56,19 @@
                 </button>
                 <!-- Navbar Links -->
                 <div id="navbarMenu" class="hidden lg:flex items-center space-x-10">
-                    <a href="#predictor" class="text-gray-300 hover:text-blue-400 ">Predictor</a>
                     <a href="#about" class="text-gray-300 hover:text-blue-400">About Us</a>
                     <a href="#feedback" class="text-gray-300 hover:text-blue-400">Feedback</a>
-                    <button id="loginBtn"
-                        class="ml-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="redirect()">Login</button>
+                    <button id="loginBtn" class="ml-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        onclick="redirect()">Login</button>
                 </div>
             </div>
 
             <!-- Mobile Menu (hidden by default) -->
             <div id="mobileMenu" class="lg:hidden hidden flex-col space-y-4 p-4 bg-gray-800">
-                <a href="#predictor" class="text-gray-300 hover:text-blue-400">Predictor</a>
                 <a href="#about" class="text-gray-300 hover:text-blue-400">About</a>
                 <a href="#feedback" class="text-gray-300 hover:text-blue-400">Feedback</a>
-                <button id="loginBtnMobile"
-                    class="w-full px-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="redirect()">Login</button>
+                <button id="loginBtnMobile" class="w-full px-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    onclick="redirect()">Login</button>
             </div>
         </nav>
     </header>
@@ -66,7 +86,7 @@
                 <p class="text-xl animate__animated animate__fadeIn text-gray-300 mb-4">Your trusted partner in health
                     management.</p>
                 <p class="text-lg animate__animated animate__fadeIn text-gray-300 mb-6">Identify potential health issues
-                    based on your symptoms with our advanced disease predictor model.</p>
+                    based on your symptoms with our advanced AI model.</p>
                 <a href="#predictor"
                     class="btn btn-primary btn-lg mt-4 px-6 py-3 bg-blue-500 hover:bg-blue-600 transition duration-300 text-white rounded-lg shadow-lg animate__animated animate__fadeInUp">Get
                     Started</a>
@@ -83,44 +103,70 @@
 
 
     <!-- About Section -->
-    <!-- About Section -->
-    <section id="about" class="bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col justify-center">
+    <section id="about"
+        class="bg-gray-800 py-12 px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col justify-center relative overflow-hidden parallax-section">
         <div class="container mx-auto">
-            <h2 class="text-center text-4xl font-extrabold text-white mb-6">How We Help You</h2>
-            <p class="text-center text-gray-300 mb-12">Our platform is designed to assist you in managing your health
-                effectively. Here’s how we can help:</p>
-            <div class="flex flex-col lg:flex-row lg:space-x-12">
-                <!-- Symptom Analysis -->
+            <!-- Section Title -->
+            <h2 class="text-center text-4xl font-extrabold text-white mb-6 animate__animated animate__fadeInUp">How
+                Medimate Helps You</h2>
+            <p class="text-center text-gray-300 mb-12 animate__animated animate__fadeIn animate__delay-1s">Explore how
+                our innovative platform is transforming health management with cutting-edge tools and support:</p>
+
+            <!-- Cards with content -->
+            <div class="flex flex-col lg:flex-row lg:space-x-12 gap-8">
+                <!-- MedAI: Advanced AI Model -->
                 <div
-                    class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6 lg:mb-0 lg:w-1/3 flex flex-col items-center text-center">
-                    <img src="./img/download (1).jpeg" alt="Symptom Analysis" class="w-16 h-16 mb-4">
-                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">Provide Your Symptoms</h3>
-                    <p class="text-gray-300">Enter your symptoms into our user-friendly form. We analyze the symptoms to
-                        provide preliminary insights into potential health issues.</p>
+                    class="bg-gray-700 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center transform transition-all hover:scale-105 hover:bg-gray-600 animate__animated animate__fadeInUp">
+                    <img src="./img/medai-image.jpg" alt="MedAI"
+                        class="w-16 h-16 mb-4 transition-transform duration-300 hover:rotate-12">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">MedAI: Advanced AI Model</h3>
+                    <p class="text-gray-300">MedAI offers advanced features like symptom diagnostics, prescriptions,
+                        home remedies, and Ayurvedic solutions. With a vast knowledge base from renowned medical books,
+                        it provides valuable insights for both medical professionals and patients.</p>
                 </div>
-                <!-- Disease Identification -->
+                <!-- MedBot: Mental Health Chatbot -->
                 <div
-                    class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6 lg:mb-0 lg:w-1/3 flex flex-col items-center text-center">
-                    <img src="./img/download (2).jpeg" alt="Disease Identification" class="w-16 h-16 mb-4">
-                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">Identify Suspected Disease</h3>
-                    <p class="text-gray-300">Based on the symptoms you provide, our advanced algorithm predicts possible
-                        diseases, giving you a better understanding of your health condition.</p>
+                    class="bg-gray-700 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center transform transition-all hover:scale-105 hover:bg-gray-600 animate__animated animate__fadeInUp animate__delay-1s">
+                    <img src="./img/medbot-image.jpg" alt="MedBot"
+                        class="w-16 h-16 mb-4 transition-transform duration-300 hover:rotate-12">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">MedBot: Mental Health Chatbot</h3>
+                    <p class="text-gray-300">MedBot is here to help with mental health, providing support for anxiety
+                        and depression, especially for stressed students and professionals. It delivers therapeutic
+                        responses and mood-resolving techniques for a healthier mindset.</p>
                 </div>
-                <!-- Home Remedies -->
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center">
-                    <img src="./img/download.jpeg" alt="Home Remedies" class="w-16 h-16 mb-4">
-                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">Get Home Remedies</h3>
-                    <p class="text-gray-300">Receive a list of home remedies to help manage your symptoms and get
-                        instant relief. Remember, these remedies are not a substitute for professional medical advice.
-                    </p>
+                <!-- MedCom: Community Chat Server -->
+                <div
+                    class="bg-gray-700 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center transform transition-all hover:scale-105 hover:bg-gray-600 animate__animated animate__fadeInUp animate__delay-2s">
+                    <img src="./img/medcom-image.jpg" alt="MedCom"
+                        class="w-16 h-16 mb-4 transition-transform duration-300 hover:rotate-12">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">MedCom: Community Chat Server</h3>
+                    <p class="text-gray-300">MedCom connects people from across the globe and medical institutions,
+                        enabling communication and knowledge sharing. Collaborate with others in the medical community
+                        to promote health and wellness.</p>
                 </div>
             </div>
+            <div class="flex flex-col lg:flex-row lg:space-x-12 gap-8 mt-12">
+                <!-- MedNews: Latest Blogs and News -->
+                <div
+                    class="bg-gray-700 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center transform transition-all hover:scale-105 hover:bg-gray-600 animate__animated animate__fadeInUp animate__delay-3s">
+                    <img src="./img/mednews-image.jpg" alt="MedNews"
+                        class="w-16 h-16 mb-4 transition-transform duration-300 hover:rotate-12">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">MedNews: Latest Blogs & News</h3>
+                    <p class="text-gray-300">Stay informed with the latest developments in healthcare, medical
+                        breakthroughs, and wellness trends. MedNews provides fresh news articles and blogs that bring
+                        valuable information straight to you.</p>
+                </div>
+            </div>
+
+            <!-- Closing Text -->
             <div class="mt-12 text-center">
-                <p class="text-gray-300">While our tool provides useful insights and home remedies, we always recommend
-                    consulting with a healthcare professional for a comprehensive diagnosis and treatment plan.</p>
+                <p class="text-gray-300 animate__animated animate__fadeIn animate__delay-4s">At Medimate, we believe in
+                    empowering users with the right knowledge, tools, and support to improve their health and
+                    well-being. Join us on this transformative journey!</p>
             </div>
         </div>
     </section>
+
 
 
     <!-- Footer Section -->
@@ -131,8 +177,12 @@
 
     <!-- JavaScript -->
     <script>
-        function redirect(){
-            window.location.href = "./signup.html"; 
+        // Initialize parallax effect
+        window.onload = function () {
+            const scrollParallax = new ScrollParallax();
+        };
+        function redirect() {
+            window.location.href = "./signup.html";
         }
 
         // Toggle mobile menu visibility
@@ -147,8 +197,7 @@
             alert("Please log in to access this feature.");
         }
 
-        // Add event listeners for "Predictor" and "Feedback" links
-        document.querySelector('a[href="#predictor"]').addEventListener('click', showLoginAlert);
+
         document.querySelector('a[href="#feedback"]').addEventListener('click', showLoginAlert);
     </script>
 </body>
