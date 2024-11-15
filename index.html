@@ -85,25 +85,24 @@
     <!-- Intro Section -->
     <section
         class="intro-section relative flex items-center justify-center h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
-        <!-- 3D Canvas -->
-        <canvas id="threejs-canvas"></canvas>
+        <!-- Background Overlay -->
+        <div class="intro-overlay absolute inset-0 bg-black opacity-60"></div>
 
-        <!-- Text and Image Content -->
-        <div
-            class="container relative z-10 flex flex-col lg:flex-row items-center justify-between lg:px-20 px-5 py-10 space-y-10 lg:space-y-0">
-            <!-- Text Content -->
-            <div class="intro-content text-white max-w-lg lg:mr-10 text-center lg:text-left">
-                <h1 class="text-6xl font-extrabold animate__animated animate__fadeIn mb-6 leading-tight">Welcome to
-                    <span class="text-blue-400">Medimate</span></h1>
-                <p class="text-2xl animate__animated animate__fadeIn text-gray-300 mb-6">Your trusted partner in health
-                    management.</p>
-                <p class="text-lg animate__animated animate__fadeIn text-gray-300 mb-6">Identify potential health issues
-                    based on your symptoms with our advanced AI model.</p>
-                <a href="./signup.html"
-                    class="btn btn-primary btn-lg px-6 py-3 bg-blue-500 hover:bg-blue-600 transition duration-300 text-white rounded-lg shadow-lg animate__animated animate__fadeInUp">Get
-                    Started</a>
-            </div>
-
+        <!-- Centered Content -->
+        <div class="relative z-10 text-center px-6">
+            <h1 class="text-6xl font-extrabold text-white mb-6 leading-tight">
+                Welcome to <span class="text-blue-400">Medimate</span>
+            </h1>
+            <p class="text-2xl text-gray-300 mb-6">
+                Your trusted partner in health management.
+            </p>
+            <p class="text-lg text-gray-300 mb-6">
+                Identify potential health issues based on your symptoms with our advanced AI model.
+            </p>
+            <a href="./signup.html"
+                class="btn btn-primary btn-lg px-6 py-3 bg-blue-500 hover:bg-blue-600 transition duration-300 text-white rounded-lg shadow-lg">
+                Get Started
+            </a>
         </div>
     </section>
 
