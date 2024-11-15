@@ -5,18 +5,20 @@ new Vue({
     socket: null,
     loading: false,
     error: false,
-    username: '', // Add username field
-    messages: [] // Store chat messages
+    username: '', // Will store the full name from profile
+    messages: []
   },
   mounted() {
-    
+    // Get user data when component mounts
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData) {
+      this.username = `${userData.firstName} ${userData.lastName}`;
+    }
     this.initializeChat();
   },
   methods: {
-    
     initializeChat() {
       this.socket = io('https://community-server-mbch.onrender.com');
-
 
       this.socket.on('chat message', (msg) => {
         this.appendChatMessage(msg);
@@ -28,8 +30,13 @@ new Vue({
       const chatSend = document.getElementById('chat-send');
       const chatClose = document.getElementById('chat-close');
 
-      
-     
+      // Add event listener for profile changes
+      window.addEventListener('userDataUpdated', () => {
+        const userData = JSON.parse(localStorage.getItem("userData"));
+        if (userData) {
+          this.username = `${userData.firstName} ${userData.lastName}`;
+        }
+      });
 
       chatBtn.addEventListener('click', () => {
         chatModal.classList.remove('hidden');
@@ -48,7 +55,17 @@ new Vue({
       chatInput.addEventListener('keyup', (event) => {
         const msg = chatInput.value.trim();
         if (event.key === 'Enter' && msg) {
-          const msgObj = { username: this.username || "Anonymous", text: msg };
+          // Always check for latest username before sending
+          const userData = JSON.parse(localStorage.getItem("userData"));
+          const currentUsername = userData ?
+            `${userData.firstName} ${userData.lastName}` :
+            "Anonymous";
+
+          const msgObj = {
+            username: currentUsername,
+            text: msg,
+            timestamp: new Date().toISOString()
+          };
           this.socket.emit('chat message', msgObj);
           chatInput.value = '';
         }
@@ -57,7 +74,17 @@ new Vue({
       chatSend.addEventListener('click', () => {
         const message = chatInput.value.trim();
         if (message) {
-          const msgObj = { username: this.userName ||"Anonymous", text: message };
+          // Always check for latest username before sending
+          const userData = JSON.parse(localStorage.getItem("userData"));
+          const currentUsername = userData ?
+            `${userData.firstName} ${userData.lastName}` :
+            "Anonymous";
+
+          const msgObj = {
+            username: currentUsername,
+            text: message,
+            timestamp: new Date().toISOString()
+          };
           this.socket.emit('chat message', msgObj);
           chatInput.value = '';
         }
@@ -66,7 +93,15 @@ new Vue({
     appendChatMessage(msg) {
       const chatMessages = document.getElementById('chat-messages');
       const messageElement = document.createElement('div');
-      messageElement.textContent = `${msg.username}: ${msg.text}`;
+      const time = new Date(msg.timestamp).toLocaleTimeString();
+
+      messageElement.innerHTML = `
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-bold text-blue-400">${msg.username}</span>
+          <span class="text-xs text-gray-400">${time}</span>
+        </div>
+        <div class="text-white">${msg.text}</div>
+      `;
       messageElement.classList.add('bg-gray-700', 'p-2', 'rounded', 'mb-2');
       chatMessages.appendChild(messageElement);
       chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -76,7 +111,7 @@ new Vue({
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//section 2
 
 const accessKey = '75a07da6702dd911b3d0c6a7dfbe2795';
 
@@ -84,29 +119,29 @@ const accessKey = '75a07da6702dd911b3d0c6a7dfbe2795';
 const userLikes = {};
 
 async function fetchBlogs() {
-    try {
-        const response = await fetch(`https://api.mediastack.com/v1/news?access_key=${accessKey}&categories=health&limit=9&timestamp=${new Date().getTime()}`);
-        const data = await response.json();
+  try {
+    const response = await fetch(`https://api.mediastack.com/v1/news?access_key=${accessKey}&categories=health&limit=9&timestamp=${new Date().getTime()}`);
+    const data = await response.json();
 
-        if (data.data) {
-            renderBlogs(data.data);
-        } else {
-            console.error("No data available.");
-        }
-    } catch (error) {
-        console.error("Error fetching data:", error);
+    if (data.data) {
+      renderBlogs(data.data);
+    } else {
+      console.error("No data available.");
     }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 }
 
 function renderBlogs(blogs) {
-    const blogContainer = document.getElementById("blog-container");
-    blogContainer.innerHTML = "";
+  const blogContainer = document.getElementById("blog-container");
+  blogContainer.innerHTML = "";
 
-    blogs.forEach((blog, index) => {
-        const blogCard = document.createElement("div");
-        blogCard.className = "bg-gray-800 shadow-xl rounded-lg overflow-hidden p-6 transition-transform transform hover:scale-105";
+  blogs.forEach((blog, index) => {
+    const blogCard = document.createElement("div");
+    blogCard.className = "bg-gray-800 shadow-xl rounded-lg overflow-hidden p-6 transition-transform transform hover:scale-105";
 
-        blogCard.innerHTML = `
+    blogCard.innerHTML = `
             <h2 class="text-2xl font-semibold text-blue-500 mb-4"><a href="${blog.url}" target="_blank" class="text-blue-500 hover:underline">${blog.title}</a></h2>
             <p class="text-gray-300 text-sm mb-4" id="content-${index}">${truncateContent(blog.description)}</p>
             <button onclick="toggleContent(${index})" class="text-blue-400 hover:underline mb-2"><a href="${blog.url}" target="_blank">Read More</a></button>
@@ -125,60 +160,60 @@ function renderBlogs(blogs) {
             </div>
         `;
 
-        blogContainer.appendChild(blogCard);
-        userLikes[index] = false; // Initialize like state
-    });
+    blogContainer.appendChild(blogCard);
+    userLikes[index] = false; // Initialize like state
+  });
 }
 
 function truncateContent(content) {
-    return content && content.length > 100 ? content.slice(0, 100) + "..." : content;
+  return content && content.length > 100 ? content.slice(0, 100) + "..." : content;
 }
 
 function toggleContent(index) {
-    const contentElement = document.getElementById(`content-${index}`);
-    const isTruncated = contentElement.innerText.endsWith("...");
+  const contentElement = document.getElementById(`content-${index}`);
+  const isTruncated = contentElement.innerText.endsWith("...");
 
-    contentElement.innerText = isTruncated ? contentElement.innerText.replace("...", "") : contentElement.innerText.slice(0, 100) + "...";
+  contentElement.innerText = isTruncated ? contentElement.innerText.replace("...", "") : contentElement.innerText.slice(0, 100) + "...";
 }
 
 function toggleComment(index) {
-    const commentSection = document.getElementById(`comment-section-${index}`);
-    commentSection.classList.toggle("hidden");
+  const commentSection = document.getElementById(`comment-section-${index}`);
+  commentSection.classList.toggle("hidden");
 }
 
 function toggleLike(index) {
-    const likeCountElement = document.getElementById(`like-count-${index}`);
-    const likeIconElement = document.getElementById(`like-icon-${index}`);
+  const likeCountElement = document.getElementById(`like-count-${index}`);
+  const likeIconElement = document.getElementById(`like-icon-${index}`);
 
-    if (userLikes[index]) {
-        // If already liked, remove the like
-        likeCountElement.innerText = parseInt(likeCountElement.innerText) - 1;
-        userLikes[index] = false;
-        likeIconElement.textContent = "👍"; // Reset icon
-    } else {
-        // If not liked, add the like
-        likeCountElement.innerText = parseInt(likeCountElement.innerText) + 1;
-        userLikes[index] = true;
-        likeIconElement.textContent = "❤️"; // Change icon to indicate liked
-    }
+  if (userLikes[index]) {
+    // If already liked, remove the like
+    likeCountElement.innerText = parseInt(likeCountElement.innerText) - 1;
+    userLikes[index] = false;
+    likeIconElement.textContent = "👍"; // Reset icon
+  } else {
+    // If not liked, add the like
+    likeCountElement.innerText = parseInt(likeCountElement.innerText) + 1;
+    userLikes[index] = true;
+    likeIconElement.textContent = "❤️"; // Change icon to indicate liked
+  }
 }
 
 function addComment(index) {
-    const commentInput = document.getElementById(`comment-input-${index}`);
-    const commentText = commentInput.value.trim();
+  const commentInput = document.getElementById(`comment-input-${index}`);
+  const commentText = commentInput.value.trim();
 
-    if (commentText) {
-        const userData = JSON.parse(localStorage.getItem("userData"));
-        const username = userData ? `${userData.firstName} ${userData.lastName}` : "Anonymous";
+  if (commentText) {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    const username = userData ? `${userData.firstName} ${userData.lastName}` : "Anonymous";
 
-        const commentsContainer = document.getElementById(`comments-container-${index}`);
-        const commentDiv = document.createElement("div");
-        commentDiv.className = "bg-gray-700 p-3 rounded-md";
-        commentDiv.innerHTML = `<strong>${username}:</strong> ${commentText}`;
-        commentsContainer.appendChild(commentDiv);
+    const commentsContainer = document.getElementById(`comments-container-${index}`);
+    const commentDiv = document.createElement("div");
+    commentDiv.className = "bg-gray-700 p-3 rounded-md";
+    commentDiv.innerHTML = `<strong>${username}:</strong> ${commentText}`;
+    commentsContainer.appendChild(commentDiv);
 
-        commentInput.value = "";
-    }
+    commentInput.value = "";
+  }
 }
 
 fetchBlogs();
