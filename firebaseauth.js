@@ -222,6 +222,7 @@ if (feedbackForm) {
     }
   });
 }
+
 // Wait until the DOM content is loaded
 document.addEventListener('DOMContentLoaded', async () => {
   onAuthStateChanged(auth, async (user) => {
@@ -246,7 +247,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } else {
       // Redirect to login page if not logged in
-      window.location.href = './index.html';
+      window.location.href = './singup.html';
     }
   });
 
