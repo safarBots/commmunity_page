@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Medical Community Server Page</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=New+Rocker&family=Pacifico&family=Playwrite+FR+Trad:wght@100..400&family=Sevillana&display=swap" rel="stylesheet">
+  <style>.new-rocker-regular {font-family: "New Rocker", system-ui;font-weight: 400;font-style: normal;}</style>
 </head>
 
 <body class="bg-gray-900 text-white">
@@ -14,7 +18,7 @@
       <nav class="flex justify-between items-center">
         <div class="text-2xl font-bold flex items-center">
             <img src="./medical_services_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="Medimate Logo"class="w-8 h-8 mr-2">
-            <p>Medical Community</p>
+            <p>MedCom</p>
         </div>
         <div class="flex space-x-4">
           <!-- Profile Icon -->
@@ -33,10 +37,6 @@
         </div>
       </nav>
     </header>
-
-    <main>
-      <!-- Blog post content here... -->
-    </main>
 
     <!-- Chat Modal -->
     <div id="chat-modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
@@ -81,8 +81,8 @@
     </div>
   </div>
 
-  <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-extrabold text-center text-blue-500 mb-8">Latest Health Blogs</h1>
+  <div class="container mx-auto px-6 ">
+    <h1 class="new-rocker-regular text-4xl font-extrabold text-center text-green-500 mb-12" >Latest Health Blogs</h1>
     <div id="blog-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
   </div>
 
