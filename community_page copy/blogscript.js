@@ -5,20 +5,29 @@ new Vue({
     socket: null,
     loading: false,
     error: false,
-    username: '', // Will store the full name from profile
+    username: '',
     messages: []
   },
   mounted() {
-    // Get user data when component mounts
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       this.username = `${userData.firstName} ${userData.lastName}`;
     }
     this.initializeChat();
+    this.requestBlogInteractions();
   },
   methods: {
     initializeChat() {
       this.socket = io('https://community-server-mbch.onrender.com');
+
+      this.socket.on('connect', () => {
+        this.socket.emit('request chat history');
+        this.socket.emit('request blog interactions');
+      });
+
+      this.socket.on('chat history', (messages) => {
+        messages.forEach(msg => this.appendChatMessage(msg));
+      });
 
       this.socket.on('chat message', (msg) => {
         this.appendChatMessage(msg);
@@ -57,12 +66,12 @@ new Vue({
         if (event.key === 'Enter' && msg) {
           // Always check for latest username before sending
           const userData = JSON.parse(localStorage.getItem("userData"));
-          const currentUsername = userData ?
-            `${userData.firstName} ${userData.lastName}` :
+          const currentUsername = userData ? 
+            `${userData.firstName} ${userData.lastName}` : 
             "Anonymous";
-
-          const msgObj = {
-            username: currentUsername,
+          
+          const msgObj = { 
+            username: currentUsername, 
             text: msg,
             timestamp: new Date().toISOString()
           };
@@ -76,12 +85,12 @@ new Vue({
         if (message) {
           // Always check for latest username before sending
           const userData = JSON.parse(localStorage.getItem("userData"));
-          const currentUsername = userData ?
-            `${userData.firstName} ${userData.lastName}` :
+          const currentUsername = userData ? 
+            `${userData.firstName} ${userData.lastName}` : 
             "Anonymous";
-
-          const msgObj = {
-            username: currentUsername,
+          
+          const msgObj = { 
+            username: currentUsername, 
             text: message,
             timestamp: new Date().toISOString()
           };
@@ -89,12 +98,25 @@ new Vue({
           chatInput.value = '';
         }
       });
+
+      this.socket.on('blog likes updated', ({ blogId, likes }) => {
+        updateBlogLikes(blogId, likes);
+      });
+
+      this.socket.on('blog comments updated', ({ blogId, comments }) => {
+        updateBlogComments(blogId, comments);
+      });
+
+      this.socket.on('blog interactions', (interactions) => {
+        interactionData = interactions;
+        renderBlogs(blogData);
+      });
     },
     appendChatMessage(msg) {
       const chatMessages = document.getElementById('chat-messages');
       const messageElement = document.createElement('div');
       const time = new Date(msg.timestamp).toLocaleTimeString();
-
+      
       messageElement.innerHTML = `
         <div class="flex justify-between items-center mb-1">
           <span class="font-bold text-blue-400">${msg.username}</span>
@@ -105,6 +127,12 @@ new Vue({
       messageElement.classList.add('bg-gray-700', 'p-2', 'rounded', 'mb-2');
       chatMessages.appendChild(messageElement);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+    },
+    handleCommentKeyPress(event, blogId) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        this.addComment(blogId);
+      }
     }
   }
 });
@@ -114,22 +142,37 @@ new Vue({
 //section 2
 
 const accessKey = '75a07da6702dd911b3d0c6a7dfbe2795';
+let blogData = [];
 
-// State to track likes by the user
-const userLikes = {};
+// Load saved interaction data
+const loadInteractionData = () => {
+  const savedData = localStorage.getItem('blogInteractions');
+  return savedData ? JSON.parse(savedData) : {
+    likes: {},
+    comments: {}
+  };
+};
+
+let interactionData = loadInteractionData();
 
 async function fetchBlogs() {
   try {
     const response = await fetch(`https://api.mediastack.com/v1/news?access_key=${accessKey}&categories=health&limit=9&timestamp=${new Date().getTime()}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
 
     if (data.data) {
+      blogData = data.data; // Store blog data globally
       renderBlogs(data.data);
     } else {
       console.error("No data available.");
     }
   } catch (error) {
     console.error("Error fetching data:", error);
+    const blogContainer = document.getElementById('blog-container');
+    blogContainer.innerHTML = '<p class="text-red-500">Failed to load blogs. Please try again later.</p>';
   }
 }
 
@@ -138,30 +181,54 @@ function renderBlogs(blogs) {
   blogContainer.innerHTML = "";
 
   blogs.forEach((blog, index) => {
+    const blogId = `blog-${blog.title.replace(/\s+/g, '-')}`;
+    const likes = interactionData.likes[blogId] || 0;
+    const comments = interactionData.comments[blogId] || [];
+
     const blogCard = document.createElement("div");
     blogCard.className = "bg-gray-800 shadow-xl rounded-lg overflow-hidden p-6 transition-transform transform hover:scale-105";
+    blogCard.id = blogId;
 
     blogCard.innerHTML = `
-            <h2 class="text-2xl font-semibold text-blue-500 mb-4"><a href="${blog.url}" target="_blank" class="text-blue-500 hover:underline">${blog.title}</a></h2>
-            <p class="text-gray-300 text-sm mb-4" id="content-${index}">${truncateContent(blog.description)}</p>
-            <button onclick="toggleContent(${index})" class="text-blue-400 hover:underline mb-2"><a href="${blog.url}" target="_blank">Read More</a></button>
-            <div class="flex items-center justify-between mt-4">
-                <button onclick="toggleLike(${index})" id="like-btn-${index}" class="text-gray-500 flex items-center space-x-1">
-                    <span id="like-icon-${index}">👍</span><span id="like-count-${index}">0</span>
-                </button>
-                <button onclick="toggleComment(${index})" class="text-gray-500 flex items-center space-x-1">
-                    <span>💬</span><span>Comment</span>
-                </button>
+      <h2 class="text-2xl font-semibold text-blue-500 mb-4">
+        <a href="${blog.url}" target="_blank" class="text-blue-500 hover:underline">${blog.title}</a>
+      </h2>
+      <p class="text-gray-300 text-sm mb-4" id="content-${index}">${truncateContent(blog.description)}</p>
+      <button onclick="toggleContent(${index})" class="text-blue-400 hover:underline mb-2">
+        <a href="${blog.url}" target="_blank">Read More</a>
+      </button>
+      <div class="flex items-center justify-between mt-4">
+        <button onclick="toggleLike('${blogId}')" class="text-gray-500 flex items-center space-x-1">
+          <span id="like-icon-${blogId}">${interactionData.likes[blogId] ? '❤️' : '👍'}</span>
+          <span id="like-count-${blogId}">${likes}</span>
+        </button>
+        <button onclick="toggleComment('${blogId}')" class="text-gray-500 flex items-center space-x-1">
+          <span>💬</span><span>Comment (${comments.length})</span>
+        </button>
+      </div>
+      <div id="comment-section-${blogId}" class="mt-4 hidden bg-blue-500 p-4 rounded-lg">
+        <div class="relative">
+          <textarea id="comment-input-${blogId}" 
+            class="w-full p-3 mt-2 bg-gray-700 text-white rounded-md focus:outline-none" 
+            placeholder="Write your comment..."
+            onkeydown="handleCommentKeyPress(event, '${blogId}')"></textarea>
+          <button onclick="addComment('${blogId}')" 
+            class="mt-2 bg-blue-600 text-white py-2 px-4 rounded-md">
+            Submit
+          </button>
+        </div>
+        <div id="comments-container-${blogId}" class="mt-4 space-y-2 text-sm text-gray-100">
+          ${comments.map(comment => `
+            <div class="bg-gray-700 p-3 rounded-md">
+              <strong>${comment.username}:</strong> ${comment.text}
+              <div class="text-xs text-gray-400">${new Date(comment.timestamp).toLocaleString()}</div>
             </div>
-            <div id="comment-section-${index}" class="mt-4 hidden bg-blue-500 p-4 rounded-lg">
-                <textarea id="comment-input-${index}" class="w-full p-3 mt-2 bg-gray-700 text-white rounded-md focus:outline-none" placeholder="Write your comment..."></textarea>
-                <button onclick="addComment(${index})" class="mt-2 bg-blue-600 text-white py-2 px-4 rounded-md">Submit</button>
-                <div id="comments-container-${index}" class="mt-4 space-y-2 text-sm text-gray-100"></div>
-            </div>
-        `;
+          `).join('')}
+        </div>
+      </div>
+    `;
 
     blogContainer.appendChild(blogCard);
-    userLikes[index] = false; // Initialize like state
   });
 }
 
@@ -176,43 +243,59 @@ function toggleContent(index) {
   contentElement.innerText = isTruncated ? contentElement.innerText.replace("...", "") : contentElement.innerText.slice(0, 100) + "...";
 }
 
-function toggleComment(index) {
-  const commentSection = document.getElementById(`comment-section-${index}`);
+function toggleComment(blogId) {
+  const commentSection = document.getElementById(`comment-section-${blogId}`);
   commentSection.classList.toggle("hidden");
 }
 
-function toggleLike(index) {
-  const likeCountElement = document.getElementById(`like-count-${index}`);
-  const likeIconElement = document.getElementById(`like-icon-${index}`);
-
-  if (userLikes[index]) {
-    // If already liked, remove the like
-    likeCountElement.innerText = parseInt(likeCountElement.innerText) - 1;
-    userLikes[index] = false;
-    likeIconElement.textContent = "👍"; // Reset icon
-  } else {
-    // If not liked, add the like
-    likeCountElement.innerText = parseInt(likeCountElement.innerText) + 1;
-    userLikes[index] = true;
-    likeIconElement.textContent = "❤️"; // Change icon to indicate liked
-  }
+function toggleLike(blogId) {
+  const vueApp = document.getElementById('app').__vue__;
+  vueApp.socket.emit('blog like', { blogId });
 }
 
-function addComment(index) {
-  const commentInput = document.getElementById(`comment-input-${index}`);
+function addComment(blogId) {
+  const commentInput = document.getElementById(`comment-input-${blogId}`);
   const commentText = commentInput.value.trim();
 
   if (commentText) {
     const userData = JSON.parse(localStorage.getItem("userData"));
     const username = userData ? `${userData.firstName} ${userData.lastName}` : "Anonymous";
 
-    const commentsContainer = document.getElementById(`comments-container-${index}`);
-    const commentDiv = document.createElement("div");
-    commentDiv.className = "bg-gray-700 p-3 rounded-md";
-    commentDiv.innerHTML = `<strong>${username}:</strong> ${commentText}`;
-    commentsContainer.appendChild(commentDiv);
+    const newComment = {
+      username,
+      text: commentText,
+      timestamp: new Date().toISOString()
+    };
+
+    const vueApp = document.getElementById('app').__vue__;
+    vueApp.socket.emit('blog comment', {
+      blogId,
+      comment: newComment
+    });
 
     commentInput.value = "";
+  }
+}
+
+function updateBlogLikes(blogId, likes) {
+  const likeCountElement = document.getElementById(`like-count-${blogId}`);
+  const likeIconElement = document.getElementById(`like-icon-${blogId}`);
+  
+  if (likeCountElement && likeIconElement) {
+    likeCountElement.textContent = likes;
+    likeIconElement.textContent = likes > 0 ? '❤️' : '👍';
+  }
+}
+
+function updateBlogComments(blogId, comments) {
+  const commentsContainer = document.getElementById(`comments-container-${blogId}`);
+  if (commentsContainer) {
+    commentsContainer.innerHTML = comments.map(comment => `
+      <div class="bg-gray-700 p-3 rounded-md">
+        <strong>${comment.username}:</strong> ${comment.text}
+        <div class="text-xs text-gray-400">${new Date(comment.timestamp).toLocaleString()}</div>
+      </div>
+    `).join('');
   }
 }
 

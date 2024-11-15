@@ -56,7 +56,8 @@
                 </div>
               </button>
               <div id="dropdown-menu" class="hidden absolute right-0 mt-2 bg-gray-800 rounded shadow-lg w-48">
-                <a href="../homepage.html" class="block px-4 py-2 text-white hover:bg-gray-700">Home</a>
+                <a href="../homepage.html"
+                  class="block px-4 py-2 text-white hover:bg-gray-700">Home</a>
                 <a href="#" class="block w-full px-4 py-2 text-white hover:bg-gray-700">Profile</a>
               </div>
             </div>
@@ -115,10 +116,7 @@
         <h1 class="new-rocker-regular text-4xl font-extrabold text-center text-white mb-12">Latest Health Blogs</h1>
         <div id="blog-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
       </div>
-    </div>
 
-
-    <div id="app" class="container mx-auto py-4">
       <footer class="bg-blue-500 text-center py-3">
         <p class="text-lg">
           Email:
@@ -126,10 +124,9 @@
         </p>
         <p>&copy; 2024 Medimate. All rights reserved.</p>
       </footer>
-
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
     <script src="https://cdn.socket.io/4.8.0/socket.io.min.js" crossorigin="anonymous"></script>
     <script src="./blogscript.js"></script>
     <script type="module" src="../firebaseauth.js"></script>
@@ -159,6 +156,13 @@
       } else {
         console.log("No user data found.");
       }
+      // Add cleanup for event listeners
+      window.addEventListener('beforeunload', () => {
+        // Cleanup socket connection
+        if (socket) {
+          socket.disconnect();
+        }
+      });
     </script>
 </body>
 
