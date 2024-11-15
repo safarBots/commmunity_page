@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
-    <link rel="stylesheet" href="./styles.css">
+    <!-- <link rel="stylesheet" href="./styles.css"> -->
     <style>
         /* Canvas styling */
         canvas {
@@ -220,7 +220,7 @@
                 </div>
 
             </div>
-        </div>    
+        </div>
     </section>
 
     <!-- Enhanced Footer -->
@@ -293,6 +293,9 @@
         </div>
     </footer>
     <script>
+        function redirect() {
+            window.location.href = "./signup.html";
+        }
 
         // Three.js Setup
         const canvas = document.getElementById("threejs-canvas");
