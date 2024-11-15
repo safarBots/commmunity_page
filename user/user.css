@@ -1,0 +1,112 @@
+/* Base styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+h2 {
+    color: #00aaff;
+}
+
+#user-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Profile Picture */
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00aaff;
+}
+
+.upload-button {
+    margin-top: 10px;
+    background-color: #00aaff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-button:hover {
+    background-color: #0088cc;
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #ff5e5e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.logout-btn:hover {
+    background-color: #ff3333;
+}
+
+/* Form styles */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-form label {
+    margin-bottom: 5px;
+    color: #f0f0f0;
+}
+
+.profile-form input,
+.profile-form select {
+    background-color: #333;
+    border: 1px solid #00aaff;
+    padding: 10px;
+    border-radius: 5px;
+    color: #f0f0f0;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+    border-color: #0088cc;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    #profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+}
