@@ -317,8 +317,6 @@
         Feedback
       </h2>
       <form id="feedbackForm" class="max-w-lg mx-auto bg-gray-900 p-8 rounded-lg shadow-lg">
-
-        <!-- Feedback Field -->
         <div class="mb-6">
           <label for="feedback" class="block text-white text-lg font-medium mb-2">
             Your Feedback:
@@ -327,13 +325,10 @@
             class="form-textarea w-full h-32 px-3 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             placeholder="Share your thoughts..." required></textarea>
         </div>
-
-        <!-- Submit Button -->
         <button type="submit"
           class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300">
           Submit Feedback
         </button>
-
       </form>
     </div>
   </section>
@@ -389,20 +384,21 @@
       }
     };
 
-    const feedbackForm = document.getElementById('feedbackForm');
-    const feedbackTextarea = document.getElementById('feedback');
+    window.onload = function () {
+      const feedbackForm = document.querySelector('#feedbackForm');
 
-    feedbackForm.addEventListener('submit', function (e) {
-      e.preventDefault();  // Prevent form from submitting
-      const feedbackText = feedbackTextarea.value;  // Get the current feedback text
+      feedbackForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const feedbackInput = document.querySelector('#feedback');
 
-      if (feedbackText.trim() !== '') {  // Check if feedback is not empty
-        alert('Thank you for your feedback!');
-        feedbackTextarea.value = '';  // Clear the textarea
-      } else {
-        alert('Please enter your feedback before submitting.');
-      }
-    });
+        if (feedbackInput.value.trim()) {
+          alert('Thank you for your feedback!');
+          feedbackInput.value = '';
+        } else {
+          alert('Please enter your feedback before submitting.');
+        }
+      });
+    };
 
   </script>
 </body>
