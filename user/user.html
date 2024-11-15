@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="user.css" />
+  </head>
+  <body>
+    <section id="user-profile">
+      <div class="container">
+        <div class="profile-header">
+          <img
+            id="profile-picture"
+            src="./download.jpeg"
+            alt="Profile Picture"
+          />
+          <button id="logout-btn" class="logout-btn">Logout</button>
+        </div>
+        <div class="profile-form">
+          <label for="username">User</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your name"
+            readonly
+          />
+
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            readonly
+          />
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Check if user is logged in
+      const loggedInUserId = localStorage.getItem("loggedInUserId");
+      if (!loggedInUserId) {
+          // If no user is logged in, redirect to index.html
+          window.location.href = "../index.html";
+      }
+
+      // Retrieve user data from localStorage
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData) {
+          // Populate fields with user data
+          document.getElementById("username").value = `${userData.firstName} ${userData.lastName}`;
+          document.getElementById("email").value = userData.email;
+      } else {
+          console.log("No user data found.");
+      }
+
+      // Logout functionality
+      document.getElementById("logout-btn").addEventListener("click", () => {
+          localStorage.removeItem("loggedInUserId");
+          localStorage.removeItem("userData"); // Clear user data
+          window.location.href = "../index.html"; // Redirect to index or login page
+      });
+
+      // Prevent back navigation to homepage.html or user.html after logout
+      window.onload = function () {
+          // Push the current state to history to prevent back button navigation
+          window.history.pushState(null, null, window.location.href);
+      };
+
+      window.onpopstate = function () {
+          // Redirect to index.html if the user tries to go back
+          window.location.href = "../index.html";
+      };
+  </script>
+  </body>
+</html>

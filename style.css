@@ -1,0 +1,266 @@
+/* Reset and global styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif; /* Apply Poppins font to all elements */
+}
+
+/* Body styling */
+body {
+    background-color: #c9d6ff; /* Set a light blue background color */
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff); /* Add a gradient for a smooth background transition */
+}
+
+/* Container for the form */
+.container {
+    background: #fff; /* White background for the form container */
+    width: 450px; /* Fixed width for the container */
+    padding: 1.5rem; /* Padding inside the container */
+    margin: 50px auto; /* Center the container with top margin */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 20px 35px rgba(0, 0, 1, 0.9); /* Add shadow for depth */
+}
+
+/* Form styling */
+form {
+    margin: 0 2rem; /* Add margin inside the form */
+}
+
+/* Form title styling */
+.form-title {
+    font-size: 1.5rem; /* Font size for form title */
+    font-weight: bold; /* Bold font weight */
+    text-align: center; /* Center align text */
+    padding: 1.3rem; /* Padding around title */
+    margin-bottom: 0.4rem; /* Space below the title */
+}
+
+/* Input fields styling */
+input {
+    color: inherit; /* Inherit text color */
+    width: 100%; /* Full width input */
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove default border */
+    border-bottom: 1px solid #757575; /* Light bottom border */
+    padding-left: 1.5rem; /* Padding to the left for spacing */
+    font-size: 15px; /* Font size for input text */
+}
+
+/* Input group container */
+.input-group {
+    padding: 1% 0; /* Space between input fields */
+    position: relative; /* Relative position to handle icon positioning */
+}
+
+/* Icon styling inside input fields */
+.input-group i {
+    position: absolute; /* Absolute positioning for icons */
+    color: black; /* Icon color */
+}
+
+/* Input focus styling */
+input:focus {
+    background-color: transparent; /* Transparent background on focus */
+    outline: transparent; /* Remove outline */
+    border-bottom: 2px solid hsl(327, 90%, 28%); /* Highlighted border on focus */
+}
+
+/* Placeholder styling */
+input::placeholder {
+    color: transparent; /* Make placeholder text transparent */
+}
+
+/* Label styling */
+label {
+    color: #757575; /* Light grey color */
+    position: relative; /* Relative positioning for animation */
+    left: 1.2em; /* Move label to match input alignment */
+    top: -1.3em; /* Position above the input field */
+    cursor: auto; /* Default cursor */
+    transition: 0.3s ease all; /* Smooth transition */
+}
+
+/* Move label when input is focused or has text */
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+    top: -3em; /* Raise label */
+    color: hsl(327, 90%, 28%); /* Change color */
+    font-size: 15px; /* Reduce font size */
+}
+
+/* Recover password link */
+.recover {
+    text-align: right; /* Align to the right */
+    font-size: 1rem; /* Font size */
+    margin-bottom: 1rem; /* Bottom margin */
+}
+
+.recover a {
+    text-decoration: none; /* Remove underline */
+    color: rgb(125, 125, 235); /* Blue color */
+}
+
+.recover a:hover {
+    color: blue; /* Darker blue on hover */
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Button styling */
+button {
+    font-size: 1.1rem; /* Font size for button text */
+    padding: 8px 0; /* Padding for height */
+    border-radius: 5px; /* Rounded corners */
+    outline: none; /* Remove outline */
+    border: none; /* No border */
+    width: 100%; /* Full width */
+    background: rgb(125, 125, 235); /* Button background color */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer cursor */
+    transition: 0.9s; /* Smooth hover transition */
+}
+
+button:hover {
+    background: #07001f; /* Darker background on hover */
+}
+
+/* OR divider styling */
+.or {
+    font-size: 1.1rem; /* Font size */
+    margin-top: 0.5rem; /* Space above */
+    text-align: center; /* Center alignment */
+}
+
+/* Social media icons */
+.icons {
+    text-align: center; /* Center icons */
+}
+
+.icons i {
+    color: rgb(125, 125, 235); /* Icon color */
+    padding: 0.8rem 1.5rem; /* Padding around icon */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 1.5rem; /* Icon font size */
+    cursor: pointer; /* Pointer cursor */
+    border: 2px solid #dfe9f5; /* Border around icons */
+    margin: 0 15px; /* Space between icons */
+    transition: 1s; /* Smooth hover transition */
+}
+
+.icons i:hover {
+    background: #07001f; /* Dark background on hover */
+    font-size: 1.6rem; /* Slightly increase size */
+    border: 2px solid rgb(125, 125, 235); /* Change border color */
+}
+
+/* Link section */
+.links {
+    display: flex; /* Horizontal layout */
+    justify-content: space-around; /* Spread content */
+    padding: 0 4rem; /* Side padding */
+    margin-top: 0.9rem; /* Space above */
+    font-weight: bold; /* Bold text */
+}
+
+/* Sign up and sign in buttons in link section */
+#signUpButton, #signInButton {
+    color: rgb(125, 125, 235); /* Blue color */
+    border: none; /* No border */
+    background-color: transparent; /* Transparent background */
+    font-size: 1rem; /* Font size */
+    font-weight: bold; /* Bold font */
+}
+
+#signUpButton:hover, #signInButton:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: blue; /* Darker blue */
+}
+
+/* Message div styling */
+.messageDiv {
+    background-color: hsl(327, 90%, 28%); /* Dark background color */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding inside message box */
+    margin: 10px; /* Space around message box */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    opacity: 0; /* Hidden initially */
+    animation: fadeOut 7s forwards; /* Fade out animation */
+}
+
+/* Password Recovery Modal Styles */
+#passwordRecoveryModal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#passwordRecoveryModal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: hsl(0, 0%, 0%);
+    text-align: center;
+}
+
+#passwordRecoveryModal input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+#passwordRecoveryModal input[type="email"]:focus {
+    border: 1px solid hsl(0, 0%, 0%);
+}
+
+#passwordRecoveryModal button {
+    font-size: 1.1rem;
+    padding: 8px 0;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 1rem;
+    background: rgb(125, 125, 235);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#passwordRecoveryModal button:hover {
+    background: #07001f;
+}
+
+/* Modal Background Overlay */
+#modalOverlay {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+/* Success message styling */
+.email-sent-message {
+    display: none; /* Hidden by default */
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin-top: 1rem;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medimate - Health Care Disease Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-gray-900 text-light">
+    <!-- Navbar Section -->
+    <header>
+        <nav class="bg-gray-900">
+            <div class="container mx-auto px-4 flex items-center justify-between py-3">
+                <!-- Logo -->
+                <a href="#" class="flex items-center">
+                    <img src="./img/medical_services_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="Medimate Logo"
+                        class="w-8 h-8 mr-2">
+                    <span class="text-3xl font-semibold text-white mx-2">Medimate</span>
+                </a>
+                <!-- Mobile Toggle Button -->
+                <button class="block lg:hidden text-gray-400 focus:outline-none" id="navbarToggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+                <!-- Navbar Links -->
+                <div id="navbarMenu" class="hidden lg:flex items-center space-x-10">
+                    <a href="#predictor" class="text-gray-300 hover:text-blue-400 ">Predictor</a>
+                    <a href="#about" class="text-gray-300 hover:text-blue-400">About Us</a>
+                    <a href="#feedback" class="text-gray-300 hover:text-blue-400">Feedback</a>
+                    <button id="loginBtn"
+                        class="ml-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="redirect()">Login</button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (hidden by default) -->
+            <div id="mobileMenu" class="lg:hidden hidden flex-col space-y-4 p-4 bg-gray-800">
+                <a href="#predictor" class="text-gray-300 hover:text-blue-400">Predictor</a>
+                <a href="#about" class="text-gray-300 hover:text-blue-400">About</a>
+                <a href="#feedback" class="text-gray-300 hover:text-blue-400">Feedback</a>
+                <button id="loginBtnMobile"
+                    class="w-full px-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="redirect()">Login</button>
+            </div>
+        </nav>
+    </header>
+    <!-- Intro Section -->
+    <section
+        class="intro-section relative flex items-center justify-center h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
+        <div class="intro-overlay absolute inset-0 bg-black opacity-50"></div>
+
+        <div
+            class="container relative z-10 flex flex-col lg:flex-row items-center justify-between lg:px-20 px-5 py-10 space-y-10 lg:space-y-0">
+            <!-- Text Content -->
+            <div class="intro-content text-white max-w-lg lg:mr-10 text-center lg:text-left">
+                <h1 class="text-5xl font-bold animate__animated animate__fadeIn mb-4">Welcome to <span
+                        class="text-blue-400">Medimate</span></h1>
+                <p class="text-xl animate__animated animate__fadeIn text-gray-300 mb-4">Your trusted partner in health
+                    management.</p>
+                <p class="text-lg animate__animated animate__fadeIn text-gray-300 mb-6">Identify potential health issues
+                    based on your symptoms with our advanced disease predictor model.</p>
+                <a href="#predictor"
+                    class="btn btn-primary btn-lg mt-4 px-6 py-3 bg-blue-500 hover:bg-blue-600 transition duration-300 text-white rounded-lg shadow-lg animate__animated animate__fadeInUp">Get
+                    Started</a>
+            </div>
+
+            <!-- Image with Gradient Border -->
+            <div class="intro-image relative rounded-lg p-2 animate-gradient-border">
+                <!-- Image -->
+                <img src="./img/pexels-karolina-grabowska-4021775.jpg" alt="Healthcare"
+                    class="object-cover rounded-lg shadow-lg" style="width: 450px; height: auto;">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <!-- About Section -->
+    <section id="about" class="bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col justify-center">
+        <div class="container mx-auto">
+            <h2 class="text-center text-4xl font-extrabold text-white mb-6">How We Help You</h2>
+            <p class="text-center text-gray-300 mb-12">Our platform is designed to assist you in managing your health
+                effectively. Here’s how we can help:</p>
+            <div class="flex flex-col lg:flex-row lg:space-x-12">
+                <!-- Symptom Analysis -->
+                <div
+                    class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6 lg:mb-0 lg:w-1/3 flex flex-col items-center text-center">
+                    <img src="./img/download (1).jpeg" alt="Symptom Analysis" class="w-16 h-16 mb-4">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">Provide Your Symptoms</h3>
+                    <p class="text-gray-300">Enter your symptoms into our user-friendly form. We analyze the symptoms to
+                        provide preliminary insights into potential health issues.</p>
+                </div>
+                <!-- Disease Identification -->
+                <div
+                    class="bg-gray-800 p-6 rounded-lg shadow-lg mb-6 lg:mb-0 lg:w-1/3 flex flex-col items-center text-center">
+                    <img src="./img/download (2).jpeg" alt="Disease Identification" class="w-16 h-16 mb-4">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">Identify Suspected Disease</h3>
+                    <p class="text-gray-300">Based on the symptoms you provide, our advanced algorithm predicts possible
+                        diseases, giving you a better understanding of your health condition.</p>
+                </div>
+                <!-- Home Remedies -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg lg:w-1/3 flex flex-col items-center text-center">
+                    <img src="./img/download.jpeg" alt="Home Remedies" class="w-16 h-16 mb-4">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-4">Get Home Remedies</h3>
+                    <p class="text-gray-300">Receive a list of home remedies to help manage your symptoms and get
+                        instant relief. Remember, these remedies are not a substitute for professional medical advice.
+                    </p>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <p class="text-gray-300">While our tool provides useful insights and home remedies, we always recommend
+                    consulting with a healthcare professional for a comprehensive diagnosis and treatment plan.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer Section -->
+    <footer class="bg-secondary text-center py-3">
+        <p>Email: <a href="mailto:safarbots@gmail.com" class="text-light">safarbots@gmail.com</a></p>
+        <p>&copy; 2024 Medimate. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function redirect(){
+            window.location.href = "signup.html"; 
+        }
+
+        // Toggle mobile menu visibility
+        document.getElementById('navbarToggle').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Function to show login alert
+        function showLoginAlert(event) {
+            event.preventDefault(); // Prevent the default anchor behavior
+            alert("Please log in to access this feature.");
+        }
+
+        // Add event listeners for "Predictor" and "Feedback" links
+        document.querySelector('a[href="#predictor"]').addEventListener('click', showLoginAlert);
+        document.querySelector('a[href="#feedback"]').addEventListener('click', showLoginAlert);
+    </script>
+</body>
+
+</html>
