@@ -229,7 +229,7 @@
   </section>
 
   <!-- Health Articles and Resources Section -->
-  <section id="resources" class="bg-gray-900 py-20 px-4 sm:px-6 lg:px-8 min-h-screen">
+  <section id="resources" class="bg-gray-900 py-20 px-4 sm:px-6 lg:px-8 min-h-fit">
     <div class="container mx-auto">
       <!-- Section Title -->
       <h2 class="text-center text-4xl font-extrabold text-white mb-10 animate_animated animate_fadeInUp">Health
@@ -388,6 +388,13 @@
         window.location.href = "index.html";
       }
     };
+
+    document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Thank you for your feedback!');
+      document.getElementById('feedback').value = '';
+    });
+
   </script>
 </body>
 
