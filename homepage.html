@@ -389,10 +389,19 @@
       }
     };
 
-    document.getElementById('feedbackForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      alert('Thank you for your feedback!');
-      document.getElementById('feedback').value = '';
+    const feedbackForm = document.getElementById('feedbackForm');
+    const feedbackTextarea = document.getElementById('feedback');
+
+    feedbackForm.addEventListener('submit', function (e) {
+      e.preventDefault();  // Prevent form from submitting
+      const feedbackText = feedbackTextarea.value;  // Get the current feedback text
+
+      if (feedbackText.trim() !== '') {  // Check if feedback is not empty
+        alert('Thank you for your feedback!');
+        feedbackTextarea.value = '';  // Clear the textarea
+      } else {
+        alert('Please enter your feedback before submitting.');
+      }
     });
 
   </script>
