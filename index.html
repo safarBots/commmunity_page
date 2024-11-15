@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/scrollparallax"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
     <link rel="stylesheet" href="styles.css">
@@ -36,35 +35,6 @@
             background: rgba(0, 0, 0, 0.4);
             /* Dark overlay for better text visibility */
             z-index: 1;
-        }
-
-        /* Parallax content styling */
-        .intro-section .content {
-            position: relative;
-            z-index: 2;
-            /* Above the overlay */
-            text-align: center;
-            color: white;
-        }
-
-                /* Parallax effect */
-                .parallax {
-            background-image: url('./img/your-background-image.jpg');
-            min-height: 100vh;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .parallax-section {
-            position: relative;
-            z-index: 10;
-        }
-
-        .parallax-content {
-            position: relative;
-            z-index: 20;
         }
     </style>
 </head>
@@ -215,10 +185,6 @@
         </footer>
 
         <script>
-            // Initialize parallax effect
-            window.onload = function () {
-                const scrollParallax = new ScrollParallax();
-            };
             // Redirect to signup
             function redirect() {
                 window.location.href = "./signup.html";
