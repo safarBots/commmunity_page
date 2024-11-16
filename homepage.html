@@ -90,24 +90,19 @@
       </div>
       <!-- Mobile Menu (hidden by default) -->
       <!-- Navbar Links -->
-      <div id="navbarMenu"
-        class="hidden lg:flex flex-col space-y-4 absolute right-0 top-16 bg-gray-800 p-4 rounded-lg shadow-lg">
-        <a href="#about"
-          class="text-gray-300 hover:text-blue-400 w-full text-left px-4 py-2 hover:bg-gray-700 rounded">About</a>
 
-        <a href="http://localhost:8000"
-          class="text-gray-300 hover:text-blue-400 w-full text-left px-4 py-2 hover:bg-gray-700 rounded">MedAI</a>
+      <div id="navbarMenu" class="hidden lg:flex items-center space-x-10">
+        <a href="#about" class="text-gray-300 hover:text-blue-400">About</a>
 
-        <a href="http://127.0.0.1:5500/MedNews/news.html"
-          class="text-gray-300 hover:text-blue-400 w-full text-left px-4 py-2 hover:bg-gray-700 rounded">MedNews</a>
+        <a href="http://localhost:8000" class="text-gray-300 hover:text-blue-400">MedAI</a>
 
-        <a href="./community_page copy/index.html"
-          class="text-gray-300 hover:text-blue-400 w-full text-left px-4 py-2 hover:bg-gray-700 rounded">MedCom</a>
+        <a href="http://127.0.0.1:5500/MedNews/news.html" class="text-gray-300 hover:text-blue-400">MedNews</a>
 
-        <button id="profileBtn"
-          class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 w-full">
+        <a href="./community_page copy/index.html" class="text-gray-300 hover:text-blue-400">MedCom</a>
+
+        <button id="profileBtn" class="ml-4 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          onclick="redirect()">
           <img src="./img/person_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="Medimate Logo" class="w-8 h-8" />
-          <span class="ml-2">Profile</span>
         </button>
       </div>
       </div>
