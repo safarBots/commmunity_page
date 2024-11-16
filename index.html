@@ -36,6 +36,90 @@
             /* Dark overlay for better text visibility */
             z-index: 1;
         }
+
+        /* Add this to your existing styles */
+        .gradient-text {
+            background: linear-gradient(
+                45deg,
+                #60a5fa,
+                #8b5cf6,
+                #3b82f6
+            );
+            background-size: 200% 200%;
+            animation: gradient 5s ease infinite;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Add to your existing styles */
+        #mobileMenu {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        #mobileMenu:not(.hidden) {
+            max-height: 300px; /* Adjust based on your content */
+        }
+
+        /* Optional: Add animation to hamburger icon */
+        #navbarToggle {
+            transition: transform 0.3s ease;
+        }
+
+        #navbarToggle.active {
+            transform: rotate(90deg);
+        }
+
+        /* Add to your existing styles */
+        .scroll-indicator {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Custom animation for the arrow */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .float-animation {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* Improved bounce animation */
+        .custom-bounce {
+            animation: customBounce 2s infinite;
+        }
+
+        @keyframes customBounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
     </style>
 </head>
 
@@ -51,14 +135,14 @@
                     <span class="text-3xl font-semibold text-white mx-2">Medimate</span>
                 </a>
                 <!-- Mobile Toggle Button -->
-                <button class="block lg:hidden text-gray-400 focus:outline-none" id="navbarToggle">
+                <button class="block lg:hidden text-gray-400 hover:text-white focus:outline-none" id="navbarToggle">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
                 </button>
-                <!-- Navbar Links -->
+                <!-- Desktop Menu -->
                 <div id="navbarMenu" class="hidden lg:flex items-center space-x-10">
                     <a href="#about" class="text-gray-300 hover:text-blue-400">About Us</a>
                     <a href="#contact" class="text-gray-300 hover:text-blue-400">Contact Us</a>
@@ -67,11 +151,16 @@
                 </div>
             </div>
 
-            <div id="mobileMenu" class="lg:hidden hidden flex-col space-y-4 p-4 bg-gray-800">
-                <a href="#about" class="text-gray-300 hover:text-blue-400">About</a>
-                <a href="#contact" class="text-gray-300 hover:text-blue-400">Contact Us</a>
-                <button id="loginBtnMobile" class="w-full px-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    onclick="redirect()">Login</button>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="lg:hidden hidden bg-gray-800">
+                <div class="px-4 py-3 space-y-3">
+                    <a href="#about" class="block text-gray-300 hover:text-blue-400 py-2">About Us</a>
+                    <a href="#contact" class="block text-gray-300 hover:text-blue-400 py-2">Contact Us</a>
+                    <button onclick="redirect()" 
+                        class="w-full text-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Login
+                    </button>
+                </div>
             </div>
         </nav>
     </header>
@@ -84,30 +173,39 @@
         <div class="container mx-auto px-4 relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <!-- Left Content -->
-                <div class="text-center md:text-left space-y-6 animate__animated animate__fadeInLeft">
-                    <h1 class="text-4xl text-white md:text-6xl font-extrabold leading-tight">
-                        Welcome to <span
-                            class="text-blue-400 inline-block animate__animated animate__pulse animate__infinite">Medimate</span>
+                <div class="text-center md:text-left space-y-8 max-w-xl mx-auto md:mx-0 animate__animated animate__fadeInLeft">
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                        <span class="text-white">Welcome to</span>
+                        <span class="gradient-text inline-block hover:scale-105 transform transition-all duration-300 cursor-pointer">
+                            Medimate
+                        </span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-white max-w-xl">
+                    
+                    <p class="text-xl md:text-2xl text-white">
                         Your trusted partner in health management
                     </p>
-                    <p class="text-md text-white md:text-lg  max-w-xl">
+                    
+                    <p class="text-md text-white md:text-lg">
                         Identify potential health issues based on your symptoms with our advanced AI model
                     </p>
-                    <div class="ml-32">
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                            <a href="./signup.html" class="btn px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg 
-                                  transform hover:-translate-y-1 transition-all duration-200 
-                                  shadow-lg hover:shadow-blue-500/50 text-center">
-                                Get Started
-                            </a>
-                            <a href="#about" class="btn px-8 py-3 bg-transparent border-2 border-blue-400 text-white
-                                  hover:bg-blue-400 hover:text-white rounded-lg transform 
-                                  hover:-translate-y-1 transition-all duration-200 text-center">
-                                Learn More
-                            </a>
-                        </div>
+                    
+                    <!-- Button Container -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="./signup.html" 
+                           class="w-full sm:w-auto px-8 py-3 bg-blue-500 hover:bg-blue-600 
+                                  text-white rounded-lg transform hover:-translate-y-1 
+                                  transition-all duration-200 shadow-lg hover:shadow-blue-500/50 
+                                  text-center">
+                            Get Started
+                        </a>
+                        
+                        <a href="#about" 
+                           class="w-full sm:w-auto px-8 py-3 bg-transparent border-2 
+                                  border-blue-400 text-white hover:bg-blue-400 
+                                  hover:text-white rounded-lg transform hover:-translate-y-1 
+                                  transition-all duration-200 text-center">
+                            Learn More
+                        </a>
                     </div>
                 </div>
 
@@ -134,9 +232,13 @@
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        <div class="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2 
+                    flex flex-col items-center space-y-2 custom-bounce">
+            <span class="text-white text-sm">Scroll Down</span>
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
             </svg>
         </div>
     </section>
@@ -364,6 +466,70 @@
         }
 
         animate();
+    </script>
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbarToggle = document.getElementById('navbarToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            // Toggle mobile menu
+            navbarToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnToggle = navbarToggle.contains(event.target);
+                
+                if (!isClickInsideMenu && !isClickOnToggle && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Close mobile menu when window is resized to desktop size
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) { // lg breakpoint
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Close mobile menu when clicking a link
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+    <script>
+        // Smooth scroll function
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Hide scroll indicator when scrolled
+        window.addEventListener('scroll', function() {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (window.scrollY > 100) { // Adjust this value as needed
+                scrollIndicator.classList.add('opacity-0');
+            } else {
+                scrollIndicator.classList.remove('opacity-0');
+            }
+        });
     </script>
 </body>
 
